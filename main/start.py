@@ -5,4 +5,5 @@ getpass = getpass.getpass()
 
 openAI = OpenAI(openai_api_key=getpass)
 
-openAI = OpenAI()
+llm = OpenAI()
+print(llm.predict("你好"))
