@@ -7,6 +7,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
+from main.model_factory import model_factory
 
 # WebBaseLoader文档加载器集成
 loader = WebBaseLoader(
@@ -39,28 +40,39 @@ embedding = OllamaEmbeddings(
 )
 vectorstore = Chroma.from_documents(documents=splits, embedding=embedding)
 
-# VectorStore转换为Retriever
+# 创建一个 “向量数据库检索器”  从你的知识库文档里，找出最相似的 6 条内容，丢给大模型去回答
 retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 6})
 
-retrieved_docs = retriever.invoke("What are the approaches to Task Decomposition?")
+# retrieved_docs = retriever.invoke("What are the approaches to Task Decomposition?")
 
-print(len(retrieved_docs))
-exit()
+# 从LangChain Hub拉取预定义的RAG提示模板
+# 该模板定义了如何将检索到的上下文和用户问题组合成prompt，用于指导LLM生成回答
+
 prompt = hub.pull("rlm/rag-prompt")
 
+llm = model_factory().create_model()
 
 def format_docs(docs):
     return "\n\n".join(doc.page_content for doc in docs)
 
 
+# 工作流程：
+# 1. 接收用户问题，通过retriever从向量数据库检索相关文档
+# 2. 使用format_docs将检索的文档格式化为字符串作为context
+# 3. 将context和question传入prompt模板
+# 4. 通过llm生成回答
+# 5. 使用StrOutputParser解析输出结果为字符串
 rag_chain = (
         {"context": retriever | format_docs, "question": RunnablePassthrough()}
         | prompt
         | llm
         | StrOutputParser()
 )
-
-rag_chain.invoke("What is Task Decomposition?")
+# invoke()：普通调用 → 一次问一个问题，等全部回答完才返回
+# stream()：流式返回 → 像 ChatGPT 一样一个字一个字吐出来
+# abatch()：批量异步调用 → 一次问 N 个问题，并发跑，全部完了一起返回
+for chunk in rag_chain.stream("What is Task Decomposition in RAG?"):
+    print(chunk, end="", flush=True)
 
 # cleanup
-vectorstore.delete_collection()
+# vectorstore.delete_collection()
