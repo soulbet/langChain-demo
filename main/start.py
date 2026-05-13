@@ -1,9 +1,4 @@
-from langchain.llms import OpenAI
-import getpass
-# 运行时输入OpenAI API Key
-getpass = getpass.getpass()
+import os.path
 
-openAI = OpenAI(openai_api_key=getpass)
-
-llm = OpenAI()
-print(llm.predict("你好"))
+a = os.path.getsize(r"D:\work_space\python\langChain-demo\main\RAGDemo\bilibili_audio.mp3")
+print(a/1024/1024)
