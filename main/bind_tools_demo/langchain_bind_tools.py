@@ -37,10 +37,7 @@ class multiply(BaseModel):
     b: int = Field(..., description="Second integer")
 
 
-import getpass
-import os
 tools = [add, multiply]
-os.environ["OPENAI_API_KEY"] = getpass.getpass()
 
 llm = model_factory().create_model()
 
@@ -48,4 +45,5 @@ llm_with_tools = llm.bind_tools(tools)
 
 query = "What is 3 * 12?"
 
-llm_with_tools.invoke(query)
+var = llm_with_tools.invoke(query).tool_calls
+print(var)
