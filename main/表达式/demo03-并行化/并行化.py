@@ -24,6 +24,9 @@ Answer in the following language: {language}
 """
 prompt = ChatPromptTemplate.from_template(template)
 
+
+# RunnablePassthrough()：核心作用是将接收到的输入原封不动地传递给下一个组件，本身不做任何修改或处理
+# RunnablePassthrough().assign()可以添加新字典
 retrieval_chain = (
     {"context": parallel_retriever, "question": RunnablePassthrough()}
     | prompt
