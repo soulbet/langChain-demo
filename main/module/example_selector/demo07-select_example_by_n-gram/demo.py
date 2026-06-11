@@ -1,9 +1,15 @@
 
 """
-NGramOverlapExampleSelector 根据与输入的 ngram 重叠分数选择和排序示例。ngram 重叠分数是一个介于 0.0 和 1.0 之间的浮点数（包括 0.0 和 1.0）。
+NGramOverlapExampleSelector 根据与输入的 ngram 重叠分数选择和排序示例。
+ngram 重叠分数是一个介于 0.0 和 1.0 之间的浮点数（包括 0.0 和 1.0）。
 
-选择器允许设置阈值分数。ngram 重叠分数小于或等于阈值的示例将被排除。默认情况下，阈值设置为 -1.0，因此不会排除任何示例，只会重新排序。将阈值设置为 0.0 将排除与输入没有 ngram 重叠的示例。
-重叠分数 = (两个文本共有的 N-gram 数量) / (两个文本中 N-gram 的总数)
+N-Gram 是文本切分规则，把句子 / 词语按连续 N 个单元拆分：
+    1-Gram（一元）：单个字 / 词
+    例：happy → [happy]
+    2-Gram（二元，Bigram）：连续 2 个单元
+    例：very happy → [very happy]
+    3-Gram（三元，Trigram）：连续 3 个单元
+多用于计算文本相似度、匹配相似例句，LangChain 里常用它做样本检索。
 """
 
 from langchain_community.example_selectors import NGramOverlapExampleSelector
@@ -23,11 +29,17 @@ examples = [
 
 example_selector = NGramOverlapExampleSelector(
     # The examples it has available to choose from.
+    # 可供选择的示例
     examples=examples,
     # The PromptTemplate being used to format the examples.
+    # 用于格式化示例的模板
     example_prompt=example_prompt,
     # The threshold, at which selector stops.
     # It is set to -1.0 by default.
+    # 相似度阈值
+    # threshold = 0.0：只保留有重叠的样本
+    # threshold = -1.0：关闭过滤，所有样本按「相似度从高到低」排序（最常用）
+    # 数值越大，筛选越严格
     threshold=-1.0,
     # For negative threshold:
     # Selector sorts examples by ngram overlap score, and excludes none.

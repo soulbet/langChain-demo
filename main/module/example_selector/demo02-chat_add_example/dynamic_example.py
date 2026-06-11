@@ -34,6 +34,7 @@ example_selector = SemanticSimilarityExampleSelector(
 )
 
 # The prompt template will load examples by passing the input do the `select_examples` method
+# 提示模板将通过调用 `select_examples` 方法来传递输入，从而加载示例。
 example_selector.select_examples({"input": "horse"})
 
 # 组装提示模板，使用上面创建的 example_selector
