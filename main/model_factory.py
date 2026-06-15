@@ -12,8 +12,13 @@ class model_factory:
 
         :return:
         """
-        self.model = ChatOpenAI(model="qwen3-coder:480b-cloud",  # 你的模型
-                                openai_api_key="ollama",  # 👈 必须加这个！ollama 固定填 ollama
-                                base_url="http://localhost:11434/v1",  # 👈 本地地址也要加temperature=0
-                                temperature=0.7)
+        self.model = ChatOpenAI(
+            model="deepseek-chat",  # DeepSeek 模型名称
+            openai_api_key="sk-83d73e8bca6948159a4f2d2b6d9abf94",  # 👈 DeepSeek 的 API Key
+            openai_api_base="https://api.deepseek.com/v1",  # 👈 DeepSeek 的 API 端点
+            temperature=0.7,
+            max_tokens=1024,
+            logprobs=True,  # 开启 logprobs
+            top_logprobs=5  # 5个备选
+        )
         return self.model
