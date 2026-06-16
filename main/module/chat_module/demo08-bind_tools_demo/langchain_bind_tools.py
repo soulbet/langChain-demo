@@ -45,5 +45,6 @@ llm_with_tools = llm.bind_tools(tools)
 
 query = "What is 3 * 12?"
 
+#  工具调用，ToolCall 是一个包含 工具名称、参数值字典和（可选）标识符的类型字典
 var = llm_with_tools.invoke(query).tool_calls
 print(var)
