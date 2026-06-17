@@ -22,3 +22,16 @@ chain = some_chain.with_config({"tags": ["default-tag"]})
 
 response = model.invoke("你好", config=config)
 
+# 自定义函数
+def my_custom_step(input: str, config: RunnableConfig) -> str:
+    # 从 config 中读取配置
+    user_id = config.get("metadata", {}).get("user_id", "unknown")
+    tags = config.get("tags", [])
+    print(f"处理用户: {user_id}, 标签: {tags}")
+    return f"处理结果: {input}"
+
+chain = RunnableLambda(my_custom_step)
+chain.invoke("Hello", config={"metadata": {"user_id": "alice"}, "tags": ["important"]})
+
+
+# bind
