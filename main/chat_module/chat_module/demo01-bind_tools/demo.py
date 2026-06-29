@@ -36,7 +36,9 @@ class multiply(BaseModel):
     b: int = Field(..., description="Second integer")
 tools = [add, multiply]
 llm = model_factory().create_model()
-llm_with_tools = llm.bind_tools(tools)
+# ool_choice="Multiply" 强制使用工具
+# parallel_tool_calls=False  仅调用一个工具一次
+llm_with_tools = llm.bind_tools(tools, tool_choice="Multiply")
 
 
 query = "What is 3 * 12?"

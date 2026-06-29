@@ -1,7 +1,11 @@
 
 from copy import deepcopy
+from typing import List, Annotated
 
 from langchain_core.runnables import chain
+from langchain_core.tools import tool, InjectedToolArg
+
+from main.model_factory import model_factory
 
 user_to_pets = {}
 
@@ -43,6 +47,7 @@ tools = [
     delete_favorite_pets,
     list_favorite_pets,
 ]
+llm = model_factory().create_model()
 llm_with_tools = llm.bind_tools(tools)
 ai_msg = llm_with_tools.invoke("my favorite animals are cats and parrots")
 @chain
