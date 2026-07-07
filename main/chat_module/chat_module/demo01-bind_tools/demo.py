@@ -22,28 +22,14 @@ def multiply(a: int, b: int) -> int:
         b: Second integer
     """
     return a * b
-class add(BaseModel):
-    """Add two integers."""
 
-    a: int = Field(..., description="First integer")
-    b: int = Field(..., description="Second integer")
-
-
-class multiply(BaseModel):
-    """Multiply two integers."""
-
-    a: int = Field(..., description="First integer")
-    b: int = Field(..., description="Second integer")
 tools = [add, multiply]
 llm = model_factory().create_model()
 # ool_choice="Multiply" 强制使用工具
 # parallel_tool_calls=False  仅调用一个工具一次
-llm_with_tools = llm.bind_tools(tools, tool_choice="Multiply")
+llm_with_tools = llm.bind_tools(tools, tool_choice="auto")
 
 
 query = "What is 3 * 12?"
-
-chain = llm_with_tools | PydanticToolsParser(tools=[add, multiply])
-chain.invoke(query)
-
-llm_with_tools.invoke(query)
+result = llm_with_tools.invoke(query)
+print(result.tool_calls)
