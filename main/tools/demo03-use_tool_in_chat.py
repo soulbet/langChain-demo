@@ -1,7 +1,7 @@
 from langchain_core.output_parsers import PydanticToolsParser
 from pydantic import BaseModel, Field
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 
 def add(a: int, b: int) -> int:

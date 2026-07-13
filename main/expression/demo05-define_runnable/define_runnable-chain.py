@@ -2,7 +2,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import chain
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 prompt1 = ChatPromptTemplate.from_template("Tell me a joke about {topic}")
 prompt2 = ChatPromptTemplate.from_template("What is the subject of this joke: {joke}")

@@ -1,9 +1,8 @@
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
-from langchain_openai import ChatOpenAI
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 prompt = ChatPromptTemplate.from_messages(
     [

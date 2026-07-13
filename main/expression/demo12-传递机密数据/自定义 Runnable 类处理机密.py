@@ -1,10 +1,9 @@
 from langchain_core.runnables import Runnable, RunnableConfig
-from langchain_core.callbacks import CallbackManagerForChainRun
 from typing import Optional, Dict, Any
 import os
 from getpass import getpass
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 
 class SecureRunnable(Runnable):

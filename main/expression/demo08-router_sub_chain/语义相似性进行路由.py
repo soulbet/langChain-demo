@@ -4,7 +4,7 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableLambda, RunnablePassthrough
 from langchain_openai import OpenAIEmbeddings
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 physics_template = """You are a very smart physics professor. \
 You are great at answering questions about physics in a concise and easy to understand manner. \

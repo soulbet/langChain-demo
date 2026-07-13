@@ -3,7 +3,7 @@ from typing import Iterator, List
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 prompt = ChatPromptTemplate.from_template(
     "Write a comma-separated list of 5 animals similar to: {animal}. Do not include numbers"

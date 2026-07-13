@@ -1,4 +1,4 @@
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 chat=model_factory().create_model()
 for chunk in chat.stream("Write me a 1 verse song about goldfish on the moon"):

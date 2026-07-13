@@ -1,12 +1,11 @@
 from langgraph.graph import StateGraph, MessagesState
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.prebuilt import ToolNode, tools_condition
-from langchain_openai import ChatOpenAI
 from langchain_core.tools import tool
 from langgraph.channels.delta import DeltaChannel
 from typing import Annotated, List
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 
 # 1. 定义工具

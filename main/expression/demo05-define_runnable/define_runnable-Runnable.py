@@ -2,9 +2,8 @@ from operator import itemgetter
 
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnableLambda, chain
-from langchain_openai import ChatOpenAI
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 @chain
 def length_function(text):

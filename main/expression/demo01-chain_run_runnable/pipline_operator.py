@@ -2,7 +2,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from sqlalchemy.ext.asyncio import result
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 llm = model_factory().create_model()
 

@@ -3,9 +3,9 @@ import whisper
 import yt_dlp
 from langchain_community.document_loaders import BiliBiliLoader
 from langchain_core.documents import Document
-from langchain_core.prompts import PromptTemplate, ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 # pip install bilibili-api-python yt-dlp openai-whisper
 # 填你自己的cookie

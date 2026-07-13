@@ -5,7 +5,7 @@ from typing import List, Annotated
 from langchain_core.runnables import chain
 from langchain_core.tools import tool, InjectedToolArg
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 user_to_pets = {}
 

@@ -1,7 +1,7 @@
 
 from langchain_core.runnables import RunnableConfigI, RunnableConfig, RunnableLambda
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 model = model_factory().create_model()
 

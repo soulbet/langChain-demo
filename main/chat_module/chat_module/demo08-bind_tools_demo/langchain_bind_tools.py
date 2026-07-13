@@ -1,6 +1,6 @@
 from pydantic import Field, BaseModel
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 
 def add(a: int, b: int) -> int:

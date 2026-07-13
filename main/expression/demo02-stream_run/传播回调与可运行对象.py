@@ -1,7 +1,7 @@
 
 from langchain_core.callbacks import BaseCallbackHandler
 from langchain_core.runnables import RunnableLambda
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 llm = model_factory().create_model()
 # 1. 普通函数 → 可运行对象（为了能用管道符）

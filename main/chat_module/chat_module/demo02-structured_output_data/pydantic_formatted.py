@@ -2,7 +2,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 llm=model_factory().create_model()
 

@@ -9,7 +9,7 @@ from langchain_community.vectorstores import FAISS
 from langchain_core.prompts import PromptTemplate
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 # 1. 加载中文文档（请将路径替换为你的中文文本文件）
 # CharacterTextSplitter 按字符数分割，对中文可能不够精确。

@@ -1,7 +1,7 @@
 
 from langchain_core.prompts import ChatPromptTemplate, FewShotChatMessagePromptTemplate
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 examples = [
     {"input": "2 🦜 2", "output": "4"},

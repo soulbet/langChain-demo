@@ -1,6 +1,6 @@
 from langchain_core.runnables import RunnableLambda
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 
 # 一个简单的自定义函数，根据输入长度决定如何处理

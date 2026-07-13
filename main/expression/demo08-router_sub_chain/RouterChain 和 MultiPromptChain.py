@@ -9,7 +9,7 @@ from langchain.chains.router.multi_prompt_prompt import MULTI_PROMPT_ROUTER_TEMP
 from langchain.chains import LLMChain, ConversationChain
 from langchain.prompts import PromptTemplate
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 model = model_factory().create_model()
 # 定义多个目标链（物理、数学、英语）

@@ -9,7 +9,7 @@ from langchain_core.example_selectors import SemanticSimilarityExampleSelector
 from langchain_core.prompts import FewShotChatMessagePromptTemplate, ChatPromptTemplate
 from langchain_ollama import OllamaEmbeddings
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 model = model_factory().create_model()
 examples = [

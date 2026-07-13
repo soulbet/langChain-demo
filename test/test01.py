@@ -1,9 +1,24 @@
-from main.model_factory import model_factory
+from pydantic import BaseModel
+from mcp.server.fastmcp import Context, FastMCP
 
-llm = model_factory().create_model()
+server = FastMCP("Profile")
 
-loader = UnstructuredEPubLoader("path/to/your/book.epub")
-documents = loader.load()
+class UserDetails(BaseModel):
+    email: str
+    age: int
 
-response = llm.invoke("你能帮我整理电子书的知识点吗？")
-print(response.content)
+@server.tool()
+async def create_profile(name: str, ctx: Context) -> str:
+    """Create a user profile, requesting details via elicitation."""
+    result = await ctx.elicit(
+        message=f"Please provide details for {name}'s profile:",
+        schema=UserDetails,
+    )
+    if result.action == "accept" and result.data:
+        return f"Created profile for {name}: email={result.data.email}, age={result.data.age}"
+    if result.action == "decline":
+        return f"User declined. Created minimal profile for {name}."
+    return "Profile creation cancelled."
+
+if __name__ == "__main__":
+    server.run(transport="sse")

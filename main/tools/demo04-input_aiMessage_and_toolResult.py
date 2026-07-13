@@ -1,8 +1,7 @@
-from langchain_core.messages import HumanMessage, AIMessage, ToolMessage
+from langchain_core.messages import HumanMessage, ToolMessage
 from langchain_core.tools import tool
-from langchain_openai import ChatOpenAI
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 
 # 1. 定义一个示例工具

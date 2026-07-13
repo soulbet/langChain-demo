@@ -2,7 +2,7 @@ from langchain_core.messages import (
     AIMessage, HumanMessage, SystemMessage, filter_messages
 )
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 """
 filter_messages参数：

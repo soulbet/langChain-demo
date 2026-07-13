@@ -10,7 +10,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableLambda
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 
 # 1. 准备模型

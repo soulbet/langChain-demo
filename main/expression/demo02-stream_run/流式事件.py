@@ -1,8 +1,6 @@
-from xml.etree.ElementInclude import include
-
 from langchain_core.output_parsers import JsonOutputParser
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 llm = model_factory().create_model()
 

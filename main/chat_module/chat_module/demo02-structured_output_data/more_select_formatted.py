@@ -3,7 +3,7 @@ from typing import Optional, Union
 
 from pydantic import BaseModel, Field
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 
 class Joke(BaseModel):

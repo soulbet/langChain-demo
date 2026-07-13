@@ -14,11 +14,11 @@
 
 from langchain.retrievers import SelfQueryRetriever
 from langchain.chains.query_constructor.base import AttributeInfo
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 # 1. 准备带元数据的文档
 docs = [

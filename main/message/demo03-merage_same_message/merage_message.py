@@ -5,7 +5,7 @@ from langchain_core.messages import (
     merge_message_runs,
 )
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 llm = model_factory().create_model()
 

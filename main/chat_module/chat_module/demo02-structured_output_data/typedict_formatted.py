@@ -1,6 +1,6 @@
 from typing import TypedDict, Annotated, Optional
 
-from main.model_factory import model_factory
+from model_factory import model_factory
 
 
 # TypedDict
