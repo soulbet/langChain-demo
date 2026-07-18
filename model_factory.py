@@ -30,9 +30,9 @@ class model_factory:
             return self.model
         elif model_type == 'qwen':
             self.model = ChatOpenAI(
-                model="qwen3.7-plus",  # DeepSeek 模型名称
-                openai_api_key="sk-06aa98d2df7d4b0e9b7b540df2b7c37a",  # 👈 DeepSeek 的 API Key
-                openai_api_base="https://ws-m29q37nbk63foudn.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",  # 👈 DeepSeek 的 API 端点
+                model="qwen3.7-plus",  # 模型名称
+                openai_api_key="sk-ws-H.EDPDIRX.RvWQ.MEUCIQCy_XNiddcuNxhNeTP2pAdlOrDpODM_u07DGIsi_j7JjQIgHW9Q2kpYOpJCvvkYVlpbx5adlqWkBUwZCJuJRyHOuIE",
+                openai_api_base="https://ws-uaqt9rtbju81kl76.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",  # 👈 DeepSeek 的 API 端点
                 temperature=0.7,
                 max_tokens=1024,
                 logprobs=True,  # 开启 logprobs
