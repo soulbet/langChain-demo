@@ -2,7 +2,7 @@ import asyncio
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langchain.agents import create_agent
 
-from model_factory import model_factory
+from model_factory.model_factory import model_factory
 
 
 async def main():

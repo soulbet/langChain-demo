@@ -1,9 +1,8 @@
 import asyncio
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langchain.agents import create_agent
-from langchain_openai import ChatOpenAI
 
-from model_factory import model_factory
+from model_factory.model_factory import model_factory
 import logging
 
 # 在代码顶部添加，抑制 elastic_transport 的 INFO 日志
