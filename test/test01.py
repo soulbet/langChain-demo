@@ -1,24 +1,18 @@
-from pydantic import BaseModel
-from mcp.server.fastmcp import Context, FastMCP
+from pathlib import Path
+from langchain_openai import ChatOpenAI
 
-server = FastMCP("Profile")
+from model_factory.model_factory import ModelFactory
 
-class UserDetails(BaseModel):
-    email: str
-    age: int
+# 1. 连接你的本地模型
+llm = ModelFactory().create_model(local_model_type='coder')
 
-@server.tool()
-async def create_profile(name: str, ctx: Context) -> str:
-    """Create a user profile, requesting details via elicitation."""
-    result = await ctx.elicit(
-        message=f"Please provide details for {name}'s profile:",
-        schema=UserDetails,
-    )
-    if result.action == "accept" and result.data:
-        return f"Created profile for {name}: email={result.data.email}, age={result.data.age}"
-    if result.action == "decline":
-        return f"User declined. Created minimal profile for {name}."
-    return "Profile creation cancelled."
+# 2. 加载一个代理定义（假设你复制了 'agents/frontend-developer.md' 到当前目录）
+agent_file = Path("frontend-developer.md")
+if agent_file.exists():
+    agent_prompt = agent_file.read_text(encoding="utf-8")
+else:
+    agent_prompt = "你是一个有用的编程助手。"
 
-if __name__ == "__main__":
-    server.run(transport="sse")
+# 3. 调用模型
+response = llm.invoke(agent_prompt + "\n\n用户问题：请帮我写一个 python中英文翻译")
+print(response.content)

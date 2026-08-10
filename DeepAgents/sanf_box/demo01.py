@@ -2,14 +2,14 @@ from deepagents import create_deep_agent
 from deepagents.backends import LocalShellBackend
 from langchain_core.messages import HumanMessage
 
-from model_factory.model_factory import model_factory
+from model_factory.model_factory import ModelFactory
 
 # 配置沙箱后端
 sandbox_backend = LocalShellBackend(
     root_dir="./",  # 沙箱内的工作目录
     # 可选：配置资源限制、网络访问等
 )
-llm = model_factory().create_model("qwen")
+llm = ModelFactory().create_model("qwen")
 agent = create_deep_agent(
     model=llm,
     backend=sandbox_backend,  # 使用沙箱后端
