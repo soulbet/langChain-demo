@@ -14,7 +14,7 @@ class GELU(nn.Module):
 
 
 # ============================================================
-# 2. 因果注意力掩码
+# 2. 因果注意力掩码，只能看自己和下一个，未来不能看
 # ============================================================
 def create_causal_mask(seq_len, device):
     """
@@ -44,7 +44,7 @@ class MultiHeadCausalAttention(nn.Module):
         self.W_K = nn.Linear(d_model, d_model)
         self.W_V = nn.Linear(d_model, d_model)
         self.W_O = nn.Linear(d_model, d_model)
-        self.dropout = nn.Dropout(dropout)
+        self.dropout = nn.Dropout(dropout)  ## 在训练过程中，输入张量的一些元素随机归零，概率为：attr: ‘ p ’
 
     def split_heads(self, x):
         batch, seq_len, _ = x.shape
@@ -97,6 +97,7 @@ class FeedForward(nn.Module):
 class GPTDecoderLayer(nn.Module):
     def __init__(self, d_model=768, n_heads=12, d_ff=3072, dropout=0.1):
         super().__init__()
+        # 多头注意力
         self.self_attn = MultiHeadCausalAttention(d_model, n_heads, dropout)
         self.ffn = FeedForward(d_model, d_ff, dropout)
         self.norm1 = nn.LayerNorm(d_model)
@@ -177,7 +178,7 @@ class GPT(nn.Module):
         """
         self.eval()
         device = input_ids.device
-
+   
         for _ in range(max_new_tokens):
             # 截断超长序列
             input_ids_cond = input_ids[:, -self.max_len:]

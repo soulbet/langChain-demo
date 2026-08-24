@@ -1,8 +1,10 @@
-from transformers import pipeline
+import torch
+from torch import nn
 
-# 1. 加载预训练的情感分析 pipeline
-classifier = pipeline("sentiment-analysis", model="distilbert/distilbert-base-uncased-finetuned-sst-2-english")
+a=torch.randint(1,10,(3,4))
+b=torch.triu(a,diagonal=1)*float('-inf')
+print(b)
 
-# 2. 直接使用
-result = classifier("This movie is disgustingly good!")
-print(result)  # 输出: [{'label': 'POSITIVE', 'score': 1.0}]
+print(nn.Embedding(10, 7))
+
+print(torch.arange(3, ).unsqueeze(0))

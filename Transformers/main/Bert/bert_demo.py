@@ -32,7 +32,15 @@ class MultiHeadAttention(nn.Module):
         self.dropout = nn.Dropout(dropout)
 
     def split_heads(self, x):
+        """
+
+        将输入向量“切分”成多个独立的“头”，并为后续并行计算注意力做好准备。
+        :param x:
+        :return:
+        """
         batch, seq_len, _ = x.shape
+        # 重塑维度 # 维度变化: [2, 4, 512] → [2, 4, 8, 64]
+        # 含义：把512维的向量，拆成8组，每组64维
         x = x.view(batch, seq_len, self.n_heads, self.d_k)
         return x.transpose(1, 2)  # [batch, n_heads, seq_len, d_k]
 
@@ -46,6 +54,7 @@ class MultiHeadAttention(nn.Module):
         # 注意力分数
         scores = torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(self.d_k)
 
+        # 让模型在计算注意力时，“忽略”掉那些不应该看到的位置（比如填充符 Padding 或未来的词）
         # 加上注意力掩码（padding 位置置为极小值）
         if attention_mask is not None:
             # attention_mask: [batch, 1, 1, seq_len] 或 [batch, seq_len]
