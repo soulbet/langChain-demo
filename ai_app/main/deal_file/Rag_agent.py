@@ -98,11 +98,13 @@ class RagAgent:
             )
 
     # ==================== 存入 pgvector ====================
-    def store_to_pgvector(self,
-                          chunks,
-                          file_path,
-                          vector_store
-                          ):
+    def store_to_pgvector(
+            self,
+            chunks,
+            file_path,
+            vector_store,
+            es_store
+    ):
         """将文档片段存入 pgvector"""
 
         # ========================================
@@ -133,9 +135,8 @@ class RagAgent:
             texts=texts,
             metadatas=metadatas,
         )
-        es_store.add_documents(
-            chunks
-        )
+
+        es_store.add_documents(chunks)
 
         print(
             f"✅ 已存入 {len(chunks)} 个文档片段到 '{tbl_name}' 表"
@@ -428,7 +429,7 @@ if __name__ == "__main__":
 
     # ----- 7.2 加载文档 -----
 
-    embed_flag = True
+    embed_flag = False
 
     if embed_flag:
         path = f"{Path(__file__).parent}/data/output"
@@ -438,6 +439,7 @@ if __name__ == "__main__":
             if Path(file_path).exists() and not Path(file_path).is_file():
                 raise "文件不存在！"
             rag_agent.delete_table(file_path)
+            es_store.delete_by_source(file_path)
 
             print(f"📄 文件路径: {file_path}")
             chunks = rag_agent.load_and_split_text(str(file_path))
@@ -447,7 +449,8 @@ if __name__ == "__main__":
             store = rag_agent.store_to_pgvector(
                 chunks=chunks,
                 file_path=file_path,
-                vector_store=vector_store
+                vector_store=vector_store,
+                es_store=es_store
             )
 
     # ----- 7.4 创建 Agent -----
@@ -488,10 +491,7 @@ if __name__ == "__main__":
     #             "文档中提到了哪些提高 AI 应用可靠性的方法？",
     #             "这本书中有没有介绍 Kubernetes 的部署方法？"]
 
-    contexts = ["文档中有没有提到 Kubernetes？",
-                "文档中有没有介绍 Kubernetes 的部署方法？",
-                "文档中有没有介绍 Docker 的部署方法？",
-                "文档中有没有介绍 GPU 模型部署？"]
+    contexts = ["介绍下token"]
     for context in contexts:
         print("=" * 10 + context + "=" * 10)
         response = agent.invoke({
