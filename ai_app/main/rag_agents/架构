@@ -1,0 +1,21 @@
+                    用户问题
+                       │
+                       ↓
+                Query Analysis
+                       │
+             ┌─────────┴─────────┐
+             ↓                   ↓
+        Vector Search        ES BM25
+             │                   │
+          Top 20              Top 20
+             │                   │
+             └─────────┬─────────┘
+                       ↓
+                      RRF
+                       ↓
+                  BGE Reranker
+                       ↓
+                     Top 3
+                       │
+                       ↓
+                      LLM
