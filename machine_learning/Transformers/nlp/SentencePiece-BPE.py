@@ -2,23 +2,49 @@ import re
 from collections import defaultdict
 
 
+
 class SimpleBPETokenizer:
+    """
+    @ClassName:
+    @Description:
+    @Author:
+    @Date:
+    """
     def __init__(self, vocab_size, unk_token="[UNK]", pad_token="[PAD]"):
+
+        """
+
+        :param vocab_size:
+        :param unk_token: 训练时没见过,推理时出现
+        :param pad_token: 补齐长度
+        """
+
         self.vocab_size = vocab_size
         self.unk_token = unk_token
         self.pad_token = pad_token
         self.merges = {}  # 记录合并规则，按学习顺序排列
 
+
     def _get_stats(self, corpus):
-        """统计所有相邻符号对的频率"""
+        """统计所有相邻符号对的频率
+        :param corpus:
+        :return:
+        """
+
         pairs = defaultdict(int)
         for tokens in corpus:
             for i in range(len(tokens) - 1):
                 pairs[(tokens[i], tokens[i + 1])] += 1
         return pairs
 
+
     def _apply_merge(self, corpus, pair, new_token):
-        """在整个语料库中应用一次合并"""
+        """在整个语料库中应用一次合并
+        :param corpus:
+        :param pair:
+        :param new_token:
+        :return:
+        """
         new_corpus = []
         for tokens in corpus:
             new_tokens = []
@@ -33,8 +59,11 @@ class SimpleBPETokenizer:
             new_corpus.append(new_tokens)
         return new_corpus
 
+
     def train(self, texts):
-        """训练 BPE"""
+        """训练 BPE
+        :param texts:
+        """
         # 1. 初始化：每个句子变成一个字符列表
         #    "我爱吃苹果" -> ['我', '爱', '吃', '苹', '果']
         corpus = [list(text) for text in texts]
@@ -98,6 +127,7 @@ class SimpleBPETokenizer:
         print(f"训练完毕，最终词表大小: {len(self.vocab)}")
         print(f"合并规则: {self.merges}")
 
+
     def tokenize(self, text):
         """对单句进行分词"""
         # 1. 拆成单字
@@ -118,10 +148,12 @@ class SimpleBPETokenizer:
 
         return tokens
 
+
     def encode(self, text):
         tokens = self.tokenize(text)
         unk_id = self.word2idx[self.unk_token]
         return [self.word2idx.get(t, unk_id) for t in tokens]
+
 
     def decode(self, ids):
         tokens = [self.idx2word.get(i, self.unk_token) for i in ids if i != self.word2idx[self.pad_token]]
