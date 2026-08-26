@@ -29,7 +29,7 @@ topic=UNSUPERVISED_TOPICS
 # ============================================
 def load_agent_prompt(agent_name: str = "engineering-ai-engineer") -> str:
     """从 agency-agents 加载专家代理定义"""
-    current_dir = Path(r"../agency-agents").resolve()
+    current_dir = Path(r"../../agency-agents").resolve()
     agent_file = Path(f"{current_dir}/engineering/{agent_name}.md")
     if agent_file.exists():
         return agent_file.read_text(encoding="utf-8")

@@ -7,6 +7,8 @@ from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_tavily import TavilySearch
 from tavily import TavilyClient
 
+from utils.wsl_ip_util import WslIp
+
 
 class ModelFactory:
     def __init__(self):
@@ -49,8 +51,7 @@ class ModelFactory:
                 # ============ Embedding (向量生成) ============
                 wsl_ip = "127.0.0.1"
                 try:
-                    ip_output = subprocess.check_output("wsl hostname -I", shell=True).decode()
-                    wsl_ip = ip_output.strip().split()[0]
+                    wsl_ip=WslIp().get_wsl_ip()
                 except:
                     pass
                 self.model = LlamaCppEmbeddings(base_url=f"http://{wsl_ip}:55004")
