@@ -2,7 +2,7 @@ import asyncio
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langchain.agents import create_agent
 
-from ai_app.model_factory.model_factory import model_factory
+from ai_app.model_factory.model_factory import ModelFactory
 
 
 async def main():
@@ -22,7 +22,7 @@ async def main():
         },
         handle_tool_errors=False, # 抛出异常
     )
-    llm = model_factory().create_model()
+    llm = ModelFactory().create_model()
     tools = await client.get_tools()
     agent = create_agent(
         llm,
