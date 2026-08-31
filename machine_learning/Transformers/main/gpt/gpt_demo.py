@@ -216,11 +216,17 @@ if __name__ == "__main__":
     print("=" * 50)
 
     # 用小参数测试结构
+    # 词表大小（词汇量）
     vocab_size = 1000
+    # 模型维度（隐藏层大小/嵌入维度）
     d_model = 256
+    # 多头注意力的头数
     n_heads = 8
+    # 解码器层数（Transformer 块的数量）
     n_layers = 6
+    # 前馈神经网络的中间层维度
     d_ff = 1024
+    # 模型支持的最大序列长度
     max_len = 128
 
     model = GPT(
@@ -235,6 +241,11 @@ if __name__ == "__main__":
     # 随机输入
     batch_size = 2
     seq_len = 10
+    # input_ids 的结构: 形状为 [batch_size, seq_len] 的二维整数张量 (2D Tensor)
+    # input_ids 的意义: 表示输入到 GPT 模型的 token ID 序列集合。
+    # - batch_size (批次大小): 并行处理的文本序列数量（此处为 2）。
+    # - seq_len (序列长度): 每条文本序列包含的 token 数量（此处为 10）。
+    # - 元素取值: 范围在 [0, vocab_size - 1] 之间的整数，对应词表中的具体 token 索引。
     input_ids = torch.randint(0, vocab_size, (batch_size, seq_len))
 
     # 前向传播
