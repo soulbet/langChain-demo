@@ -50,7 +50,12 @@ class UnigramTokenizer:
         return initial_vocab, word_counts
 
     def _viterbi_tokenize(self, word, vocab_probs):
-        """维特比算法：寻找一个词的最优切分路径，最大化对数概率"""
+        """
+            用维特比算法寻找概率最大的切分路径
+        word: 待切分的字符串
+        vocab_probs: {token: log_probability}
+        返回: (最优切分列表, 最大对数概率)
+        """
         n = len(word)
         # dp[i] 表示切分到第 i 个字符时的最大对数概率
         dp = [-float('inf')] * (n + 1)
