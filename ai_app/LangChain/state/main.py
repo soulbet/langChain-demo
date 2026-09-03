@@ -38,7 +38,7 @@ from langgraph.graph import StateGraph, MessagesState, START, END
 from langgraph.prebuilt import ToolNode, tools_condition
 from langgraph.store.memory import InMemoryStore
 
-from ai_app.model_factory.model_factory import model_factory
+
 
 
 # ======================================================================
@@ -46,6 +46,8 @@ from ai_app.model_factory.model_factory import model_factory
 # ======================================================================
 from typing_extensions import Annotated as TAnnotated
 from langgraph.prebuilt import InjectedStore
+
+from ai_app.model_factory.model_factory import ModelFactory
 
 
 @tool
@@ -81,7 +83,7 @@ def get_user_fact(fact_key: str, store: TAnnotated[Any, InjectedStore()]) -> str
 
 
 @tool
-def list_memories(namespace: str = "preferences", store: TAnnotated[Any, InjectedStore()]) -> str:
+def list_memories(namespace: str = "preferences", store: TAnnotated[Any, InjectedStore()] = None) -> str:
     """列出指定命名空间下的所有记忆。namespace 可选值: preferences, facts, learning。"""
     items = store.list_items(("user", namespace))
     if not items:
@@ -91,7 +93,7 @@ def list_memories(namespace: str = "preferences", store: TAnnotated[Any, Injecte
 
 
 @tool
-def delete_memory(key: str, namespace: str = "preferences", store: TAnnotated[Any, InjectedStore()]) -> str:
+def delete_memory(key: str, namespace: str = "preferences", store: TAnnotated[Any, InjectedStore()] = None) -> str:
     """删除指定的长期记忆。"""
     store.delete(("user", namespace), key)
     return f"已删除记忆: ({namespace}) {key}"
@@ -145,7 +147,7 @@ def build_memory_agent(model=None):
                → 返回回复（短期记忆自动保存）
     """
     if model is None:
-        model = model_factory().create_model()
+        model = ModelFactory().create_model()
 
     tools = [
         save_user_preference, get_user_preference,
