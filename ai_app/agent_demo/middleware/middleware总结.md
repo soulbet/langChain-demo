@@ -2,7 +2,7 @@
 
 > 目录：`ai_app/LangChain/middleware`
 > 版本基线：langchain **1.3.14** / langchain-core **1.4.9**（本机 `ai-env`）
-> 配套代码：[`middleware_demo.py`](./middleware_demo.py)
+> 配套代码：[`middleware_demo.py`](middleware_demo.py)
 
 ---
 
@@ -212,13 +212,13 @@ after_agent
 ```python
 from ai_app.model_factory.model_factory import ModelFactory
 from langchain.agents import create_agent
-from ai_app.LangChain.middleware.middleware_demo import DemoMiddleware, my_dynamic_prompt
+from ai_app.agent_demo.middleware.middleware_demo import DemoMiddleware, my_dynamic_prompt
 
-llm = ModelFactory().create_model()          # 本地/云模型
+llm = ModelFactory().create_model()  # 本地/云模型
 agent = create_agent(
-    llm,
-    tools=[...],
-    middleware=[DemoMiddleware(), my_dynamic_prompt],
+        llm,
+        tools=[...],
+        middleware=[DemoMiddleware(), my_dynamic_prompt],
 )
 result = agent.invoke({"messages": [{"role": "user", "content": "你好"}]})
 ```

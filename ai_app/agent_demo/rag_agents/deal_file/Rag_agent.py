@@ -3,19 +3,16 @@ import os.path
 import sys
 from pathlib import Path
 
-from langchain.agents import create_agent
-
 from langchain_core.tools import tool
 from langchain_postgres import PGVectorStore
 
-from sqlalchemy import create_engine, text, inspect
 from tqdm import tqdm
 
-from ai_app.main.rag_agents.bge_reranker import BGEReranker
-from ai_app.main.rag_agents.llm_agent import LlmAgent
-from ai_app.main.rag_agents.load_and_split_docs import LoadAndSplitDocs
-from ai_app.main.rag_agents.pg_vector_store import PgVectorStore
-from ai_app.main.rag_agents.tools import Tools
+from ai_app.agent_demo.rag_agents.bge_reranker import BGEReranker
+from ai_app.agent_demo.rag_agents.llm_agent import LlmAgent
+from ai_app.agent_demo.rag_agents.load_and_split_docs import LoadAndSplitDocs
+from ai_app.agent_demo.rag_agents.pg_vector_store import PgVectorStore
+from ai_app.agent_demo.rag_agents.tools import Tools
 from ai_app.model_factory.model_factory import ModelFactory
 from utils.es_util import ElasticsearchBM25
 from utils.wsl_ip_util import WslIp
